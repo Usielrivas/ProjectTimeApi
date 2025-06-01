@@ -1,4 +1,4 @@
-# Build results
+# Build output
 bin/
 obj/
 
@@ -8,37 +8,22 @@ obj/
 *.suo
 *.userprefs
 
-# Visual Studio Code settings folder
+# IDE folders
 .vscode/
+.idea/
 
 # NuGet packages
 *.nupkg
-# The packages folder can be ignored because of Package Restore
 packages/
 
 # Logs
 *.log
 
-# Rider IDE files
-.idea/
-
-# ASP.NET temporary files
-App_Data/
-
 # Publish output
 publish/
 
-# Entity Framework Core Migrations folder (optional: include or exclude)
-Migrations/
-
-# SQLite database file (si quieres ignorarlo)
+# SQLite database (local dev files)
 *.db
-
-# JetBrains Rider cache
-.idea/
-
-# Resharper files
-*.DotSettings.user
 
 # OS generated files
 .DS_Store
@@ -46,6 +31,3 @@ Thumbs.db
 
 # Dotnet watch files
 dotnet-watch.json
-
-# Rider project files
-*.sln.iml
