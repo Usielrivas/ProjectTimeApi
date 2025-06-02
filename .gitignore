@@ -23,7 +23,7 @@ packages/
 publish/
 
 # SQLite database (local dev files)
-*.db
+*.db*
 
 # OS generated files
 .DS_Store
