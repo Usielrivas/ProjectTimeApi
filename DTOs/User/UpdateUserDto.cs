@@ -1,19 +1,18 @@
 using System.ComponentModel.DataAnnotations;
-
 namespace ProjectTimeApi.DTOs
 
 {
-    public class CreateUserDto
+    public class UpdateUserDto
     {
         [Required]
         [EmailAddress]
         [MinLength(1)]
-        public string Email { get; set; } = default!;
+        public string? Email { get; set; } = default!;
 
         [Required]
         [MinLength(8)]
-        public string PasswordDigest { get; set; } = default!;
+        public string? PasswordDigest { get; set; } = default!;
 
-        public bool Active { get; set; } = false;
+        public bool? Active { get; set; }
     }
 }

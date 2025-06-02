@@ -24,6 +24,24 @@ namespace ProjectTimeApi.Controllers.Api.V1
             return Ok(user);
         }
 
+        [HttpPatch("{id:int}")]
+        public async Task<ActionResult<UserDto>> Edit(int id, [FromBody] UpdateUserDto dto)
+        {
+            var user = await _userService.UpdateAsync(id, dto);
+            if (user == null) return NotFound();
+
+            return Ok(user);
+        }
+
+        [HttpDelete("{id:int}")]
+        public async Task<ActionResult<int>> Destroy(int id)
+        {
+            var user = await _userService.RemoveAsync(id);
+            if (!user) return NotFound();
+
+            return NoContent();
+        }
+
         [HttpGet]
         public async Task<ActionResult<List<UserDto>>> Index()
         {

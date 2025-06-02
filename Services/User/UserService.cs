@@ -17,7 +17,9 @@ namespace ProjectTimeApi.Services
         {
             var user = new User
             {
-                Name = dto.Name,
+                Email = dto.Email,
+                PasswordDigest = dto.PasswordDigest,
+                Active = dto.Active
             };
 
             await _repository.AddAsync(user);
@@ -25,18 +27,51 @@ namespace ProjectTimeApi.Services
             return new UserDto
             {
                 Id = user.Id,
-                Name = user.Name
+                Email = user.Email,
+                Active = user.Active
             };
+        }
+
+        public async Task<UserDto?> UpdateAsync(int id, UpdateUserDto dto)
+        {
+            var user = await _repository.GetByIdAsync(id);
+            if (user == null) return null;
+
+            if (dto.Email is not null)
+                user.Email = dto.Email;
+
+            user.Active = dto.Active ?? user.Active;
+
+            if (dto.PasswordDigest is not null)
+                user.PasswordDigest = dto.PasswordDigest;
+
+            await _repository.UpdateAsync(user);
+
+            return new UserDto
+            {
+                Id = user.Id,
+                Email = user.Email,
+                Active = user.Active
+            };
+        }
+
+        public async Task<bool> RemoveAsync(int id)
+        {
+            var user = await _repository.GetByIdAsync(id);
+            if (user == null) return false;
+
+            return await _repository.RemoveAsync(user);
         }
 
         public async Task<List<UserDto>> GetAllAsync()
         {
             var users = await _repository.GetAllAsync();
-        
+
             return users.Select(u => new UserDto
             {
                 Id = u.Id,
-                Name = u.Name
+                Email = u.Email,
+                Active = u.Active
             }).ToList();
         }
 
@@ -48,7 +83,8 @@ namespace ProjectTimeApi.Services
             return new UserDto
             {
                 Id = user.Id,
-                Name = user.Name
+                Email = user.Email,
+                Active = user.Active
             };
         }
     }

@@ -19,6 +19,18 @@ namespace ProjectTimeApi.Repositories
             await _context.SaveChangesAsync();
         }
 
+        public async Task UpdateAsync(User user)
+        {
+            _context.Users.Update(user);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<bool> RemoveAsync(User user)
+        {
+            _context.Users.Remove(user);
+            return await _context.SaveChangesAsync() > 0;
+        }
+
         public async Task<List<User>> GetAllAsync()
         {
             return await _context.Users.ToListAsync();
