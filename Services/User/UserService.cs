@@ -45,6 +45,9 @@ namespace ProjectTimeApi.Services
             var user = await _repository.GetByIdAsync(id);
             if (user == null) return null;
 
+            if (dto.Email is not null && dto.Email != user.Email && await _repository.ExistsByEmailAsync(dto.Email))
+               throw new Exception("Email already taken");
+
             if (dto.Email is not null)
                 user.Email = dto.Email;
 

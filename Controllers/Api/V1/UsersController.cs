@@ -1,10 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using ProjectTimeApi.Services;
 using ProjectTimeApi.DTOs;
 
 namespace ProjectTimeApi.Controllers.Api.V1
 {
     [ApiController]
+    [Authorize]
     [Route("api/v1/[controller]")]
     public class UsersController : ControllerBase
     {

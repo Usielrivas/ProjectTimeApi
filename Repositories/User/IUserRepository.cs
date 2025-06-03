@@ -10,6 +10,7 @@ namespace ProjectTimeApi.Repositories
       Task UpdateAsync(User user);
       Task<List<User>> GetAllAsync();
       Task<User?> GetByIdAsync(int id);
+      Task<User?> GetByEmailAsync(string email);
       Task<bool> RemoveAsync(User user);
       Task<bool> ExistsByEmailAsync(string email);
   }
