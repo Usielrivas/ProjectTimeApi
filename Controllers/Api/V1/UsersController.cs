@@ -6,11 +6,11 @@ namespace ProjectTimeApi.Controllers.Api.V1
 {
     [ApiController]
     [Route("api/v1/[controller]")]
-    public class UserController : ControllerBase
+    public class UsersController : ControllerBase
     {
         private readonly UserService _userService;
 
-        public UserController(UserService userService)
+        public UsersController(UserService userService)
         {
             _userService = userService;
         }
@@ -27,6 +27,11 @@ namespace ProjectTimeApi.Controllers.Api.V1
         [HttpPatch("{id:int}")]
         public async Task<ActionResult<UserDto>> Edit(int id, [FromBody] UpdateUserDto dto)
         {
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             var user = await _userService.UpdateAsync(id, dto);
             if (user == null) return NotFound();
 

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 namespace ProjectTimeApi.DTOs
 
 {
-    public class CreateUserDto
+    public class CreateUserDto : IValidatableObject
     {
         [Required]
         [EmailAddress]
@@ -19,5 +19,13 @@ namespace ProjectTimeApi.DTOs
         public string PasswordComfirm { get; set; } = default!;
 
         public bool Active { get; set; } = false;
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (Password != PasswordComfirm)
+            {
+                yield return new ValidationResult("Passwords do not match", new[] { nameof(PasswordComfirm) });
+            }
+        }
     }
 }

@@ -40,5 +40,10 @@ namespace ProjectTimeApi.Repositories
         {
             return await _context.Users.FindAsync(id);
         }
+
+        public async Task<bool> ExistsByEmailAsync(string email)
+        {
+            return await _context.Users.AnyAsync(u => u.Email == email);
+        }
     }
 }

@@ -16,6 +16,9 @@ namespace ProjectTimeApi.Services
 
         public async Task<UserDto> CreateAsync(CreateUserDto dto)
         {
+           if (await _repository.ExistsByEmailAsync(dto.Email))
+               throw new Exception("Email already taken");
+
            var hash = new PasswordHasher<User>();
 
             var user = new User
