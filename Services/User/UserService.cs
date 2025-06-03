@@ -1,6 +1,7 @@
 using ProjectTimeApi.DTOs;
 using ProjectTimeApi.Models;
 using ProjectTimeApi.Repositories;
+using Microsoft.AspNetCore.Identity;
 
 namespace ProjectTimeApi.Services
 {
@@ -15,12 +16,15 @@ namespace ProjectTimeApi.Services
 
         public async Task<UserDto> CreateAsync(CreateUserDto dto)
         {
+           var hash = new PasswordHasher<User>();
+
             var user = new User
             {
                 Email = dto.Email,
-                PasswordDigest = dto.PasswordDigest,
                 Active = dto.Active
             };
+
+            user.PasswordDigest = hash.HashPassword(user, dto.Password);
 
             await _repository.AddAsync(user);
 
@@ -34,6 +38,7 @@ namespace ProjectTimeApi.Services
 
         public async Task<UserDto?> UpdateAsync(int id, UpdateUserDto dto)
         {
+            var hash = new PasswordHasher<User>();
             var user = await _repository.GetByIdAsync(id);
             if (user == null) return null;
 
@@ -42,8 +47,8 @@ namespace ProjectTimeApi.Services
 
             user.Active = dto.Active ?? user.Active;
 
-            if (dto.PasswordDigest is not null)
-                user.PasswordDigest = dto.PasswordDigest;
+            if (dto.Password is not null)
+                user.PasswordDigest = hash.HashPassword(user, dto.Password);
 
             await _repository.UpdateAsync(user);
 

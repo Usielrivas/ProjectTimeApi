@@ -12,7 +12,11 @@ namespace ProjectTimeApi.DTOs
 
         [Required]
         [MinLength(8)]
-        public string PasswordDigest { get; set; } = default!;
+        public string Password { get; set; } = default!;
+
+        [Required]
+        [MinLength(8)]
+        public string PasswordComfirm { get; set; } = default!;
 
         public bool Active { get; set; } = false;
     }
