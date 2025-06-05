@@ -50,9 +50,13 @@ builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<UserService>();
+
+builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
+builder.Services.AddScoped<ProjectService>();
+
 builder.Services.AddScoped<AuthService>();
 
-builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlite("Data Source=project_time.db"));
+builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlite("Data Source=storage/project_time.db"));
 
 var app = builder.Build();
 
