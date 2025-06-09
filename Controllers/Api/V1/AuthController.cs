@@ -25,7 +25,7 @@ namespace ProjectTimeApi.Controllers.Api.V1
                 return Unauthorized(new { message = "Invalid email or password" });
             }
 
-            return Ok(token.Key);
+            return Ok(token);
         }
 
         [HttpPost("register")]
